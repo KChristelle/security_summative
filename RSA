@@ -1,0 +1,24 @@
+import math
+
+message = 89
+
+# two random prime numbers
+prime1 = 11
+prime2 = 7
+
+# encrypt
+e = 3
+
+n = prime2 * prime1
+
+
+# Encryption function
+def encryption(my_message):
+    encrypt = math.pow(my_message, e)
+    result = encrypt % n
+    print("The encrypted message is:", result)
+    return result
+
+
+print("Before encryption: ", message)
+encrypted_message = encryption(message)
