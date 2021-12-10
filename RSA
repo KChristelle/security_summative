@@ -1,24 +1,20 @@
-import math
+from cryptography.fernet import Fernet
 
-message = 89
+# dummy password to encrypt
+password = "rachel ayateke"
 
-# two random prime numbers
-prime1 = 11
-prime2 = 7
+# generate key
+key = Fernet.generate_key()
 
-# encrypt
-e = 3
+# Calling fernet class and pass it the generated key
+fernet = Fernet(key)
 
-n = prime2 * prime1
+# create variable for encrypted password with key
+encrypted_password = fernet.encrypt(password.encode())
 
+print("Password before encryption: ", password)
+print("Password after encryption: ", encrypted_password)
 
-# Encryption function
-def encryption(my_message):
-    encrypt = math.pow(my_message, e)
-    result = encrypt % n
-    print("The encrypted message is:", result)
-    return result
-
-
-print("Before encryption: ", message)
-encrypted_message = encryption(message)
+# Decryption of the password
+decrypted_password = fernet.decrypt(encrypted_password).decode()
+print("Password after decryption: ", decrypted_password)

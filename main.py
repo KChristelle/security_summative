@@ -1,15 +1,20 @@
-import os
-import hashlib
+from cryptography.fernet import Fernet
 
-# create a random 32-byte length salt
-salting = os.urandom(32)
-# password example to encode
-password = 'r@che1'.encode()
+# dummy password to encrypt
+password = "rachel ayateke"
 
-# generate hash of password using sha256
-disgest = hashlib.pbkdf2_hmac('sha256', password, salting, 10000)
+# generate key
+key = Fernet.generate_key()
 
-# convert hash to hex string
-hex_string_hash = disgest.hex()
+# Calling fernet class and pass it the generated key
+fernet = Fernet(key)
 
-print(hex_string_hash)
+# create variable for encrypted password with key
+encrypted_password = fernet.encrypt(password.encode())
+
+print("Password before encryption: ", password)
+print("Password after encryption: ", encrypted_password)
+
+# Decryption of the password
+decrypted_password = fernet.decrypt(encrypted_password).decode()
+print("Password after decryption: ", decrypted_password)
